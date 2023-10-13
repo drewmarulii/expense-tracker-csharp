@@ -41,11 +41,17 @@ public class ExpenseTracker
         PrintRow("No.", "Description", "Amount", "Date");
         PrintLine();
 
-        for (int i = 0; i < expenses.Count; i++)
+        if (expenses.Count > 0)
         {
-            PrintRow((i + 1).ToString(), expenses[i].Description, expenses[i].Amount.ToString(), expenses[i].Date.ToString());
-            totalAmount += expenses[i].Amount;
+            for (int i = 0; i < expenses.Count; i++)
+            {
+                PrintRow((i + 1).ToString(), expenses[i].Description, expenses[i].Amount.ToString(), expenses[i].Date.ToString());
+                totalAmount += expenses[i].Amount;
+            }
+        } else {
+            PrintRow("No Data Found. Try to add expense!");
         }
+
         PrintLine();
         PrintRow("TotalExpense: Rp " + totalAmount);
         PrintLine();

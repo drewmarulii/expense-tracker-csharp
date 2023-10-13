@@ -12,3 +12,4 @@ D:\Personal\dot-net-project\ExpenseTracker\obj\Debug\net8.0\refint\ExpenseTracke
 D:\Personal\dot-net-project\ExpenseTracker\obj\Debug\net8.0\ExpenseTracker.pdb
 D:\Personal\dot-net-project\ExpenseTracker\obj\Debug\net8.0\ExpenseTracker.genruntimeconfig.cache
 D:\Personal\dot-net-project\ExpenseTracker\obj\Debug\net8.0\ref\ExpenseTracker.dll
+D:\Personal\dot-net-project\ExpenseTracker\obj\Debug\net8.0\ExpenseTracker.sourcelink.json
