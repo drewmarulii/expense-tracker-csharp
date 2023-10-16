@@ -30,7 +30,7 @@
                     tracker.ViewDailySummary();
                     break;
                 case 3:
-                    Console.WriteLine("\nSorry, Under Development\n");
+                    tracker.ViewWeeklySummary();
                     break;
                 case 4:
                     tracker.DisplayAllExpenses();

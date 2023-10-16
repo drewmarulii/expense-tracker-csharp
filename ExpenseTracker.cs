@@ -6,7 +6,9 @@ public class ExpenseTracker
     private List<Expense> expenses;
     private List<Expense> dailyExpenses = new List<Expense>();
 
-    static int tableWidth = 73;
+    private List<Expense> weeklyExpenses = new List<Expense>();
+
+    static int tableWidth = 100;
     public ExpenseTracker(List<Expense> expenses)
     {
         this.expenses = expenses;
@@ -57,7 +59,7 @@ public class ExpenseTracker
         }
 
         PrintLine();
-        PrintRow("TotalExpense: Rp " + totalAmount);
+        PrintRow("TotalExpense = Rp " + totalAmount);
         PrintLine();
 
         Console.WriteLine(" ");
@@ -76,7 +78,7 @@ public class ExpenseTracker
         PrintLine();
         PrintRow("No.", "Description", "Amount", "Date");
         PrintLine();
-        
+
         for (int i = 0; i < expenses.Count; i++)
         {
             if (expenses[i].Date.ToShortDateString() == inputtedDate.ToShortDateString())
@@ -99,7 +101,48 @@ public class ExpenseTracker
         }
 
         PrintLine();
-        PrintRow("TotalExpense Per" + inputtedDate.ToShortDateString() + ": Rp " + totalAmount);
+        PrintRow("TotalExpense Per" + inputtedDate.ToShortDateString() + " = Rp " + totalAmount);
+        PrintLine();
+    }
+
+    public void ViewWeeklySummary()
+    {
+        double totalAmount = 0;
+        Console.Write("\nEnter a Start date (e.g. 16/10/1987 -> dd/mm/yyyy): ");
+        DateTime startDate = DateTime.Parse(Console.ReadLine());
+        DateTime endDate = startDate.AddDays(6);
+
+        Console.WriteLine("\n____________________________");
+        Console.WriteLine("YOUR WEEKLY EXPENSES SUMARRY");
+        Console.WriteLine("____________________________");
+
+        PrintLine();
+        PrintRow("No.", "Description", "Amount", "Date");
+        PrintLine();
+
+        for (int i = 0; i < expenses.Count; i++)
+        {
+            if (expenses[i].Date >= startDate || expenses[i].Date <= endDate)
+            {
+                weeklyExpenses.Add(expenses[i]);
+            }
+        }
+
+        if (weeklyExpenses.Count > 0)
+        {
+            for (int i = 0; i < weeklyExpenses.Count; i++)
+            {
+                PrintRow((i + 1).ToString(), weeklyExpenses[i].Description, weeklyExpenses[i].Amount.ToString(), weeklyExpenses[i].Date.ToString());
+                totalAmount += weeklyExpenses[i].Amount;
+            }
+        }
+        else
+        {
+            PrintRow("No Data Found. Try another week!");
+        }
+
+        PrintLine();
+        PrintRow("TotalExpense From: " + startDate.ToShortDateString() + " To: " + endDate.ToShortDateString() + " = Rp " + totalAmount);
         PrintLine();
     }
 
