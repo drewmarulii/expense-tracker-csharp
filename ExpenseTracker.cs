@@ -4,8 +4,8 @@ using System.Collections.Generic;
 public class ExpenseTracker
 {
     private List<Expense> expenses;
-    private List<Expense> dailyExpenses;
-    
+    private List<Expense> dailyExpenses = new List<Expense>();
+
     static int tableWidth = 73;
     public ExpenseTracker(List<Expense> expenses)
     {
@@ -67,25 +67,30 @@ public class ExpenseTracker
     {
         double totalAmount = 0;
         Console.Write("\nEnter a date (e.g. 16/10/1987 -> dd/mm/yyyy): ");
-        DateTime date = DateTime.Parse(Console.ReadLine());
+        DateTime inputtedDate = DateTime.Parse(Console.ReadLine());
 
-        Console.WriteLine("\n_____________________");
+        Console.WriteLine("\n___________________________");
         Console.WriteLine("YOUR DAILY EXPENSES SUMARRY");
-        Console.WriteLine("_____________________");
+        Console.WriteLine("___________________________");
 
         PrintLine();
         PrintRow("No.", "Description", "Amount", "Date");
         PrintLine();
-
-        if (expenses.Count > 0)
+        
+        for (int i = 0; i < expenses.Count; i++)
         {
-            for (int i = 0; i < expenses.Count; i++)
+            if (expenses[i].Date.ToShortDateString() == inputtedDate.ToShortDateString())
             {
-                if (expenses[i].Date.ToShortDateString() == date.ToShortDateString())
-                {
-                    PrintRow((i + 1).ToString(), expenses[i].Description, expenses[i].Amount.ToString(), expenses[i].Date.ToString());
-                    totalAmount += expenses[i].Amount;
-                }
+                dailyExpenses.Add(expenses[i]);
+            }
+        }
+
+        if (dailyExpenses.Count > 0)
+        {
+            for (int i = 0; i < dailyExpenses.Count; i++)
+            {
+                PrintRow((i + 1).ToString(), dailyExpenses[i].Description, dailyExpenses[i].Amount.ToString(), dailyExpenses[i].Date.ToString());
+                totalAmount += dailyExpenses[i].Amount;
             }
         }
         else
@@ -94,7 +99,7 @@ public class ExpenseTracker
         }
 
         PrintLine();
-        PrintRow("TotalExpense Per" + date.ToShortDateString() + ": Rp " + totalAmount);
+        PrintRow("TotalExpense Per" + inputtedDate.ToShortDateString() + ": Rp " + totalAmount);
         PrintLine();
     }
 
