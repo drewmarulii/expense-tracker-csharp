@@ -4,6 +4,8 @@ using System.Collections.Generic;
 public class ExpenseTracker
 {
     private List<Expense> expenses;
+    private List<Expense> dailyExpenses;
+    
     static int tableWidth = 73;
     public ExpenseTracker(List<Expense> expenses)
     {
@@ -25,7 +27,7 @@ public class ExpenseTracker
 
         expense.Description = description;
         expense.Amount = amount;
-        expense.Date = DateTime.Now.ToString();
+        expense.Date = DateTime.Now;
         expenses.Add(expense);
         Console.WriteLine("New Expense Has Been Added\n");
     }
@@ -48,7 +50,9 @@ public class ExpenseTracker
                 PrintRow((i + 1).ToString(), expenses[i].Description, expenses[i].Amount.ToString(), expenses[i].Date.ToString());
                 totalAmount += expenses[i].Amount;
             }
-        } else {
+        }
+        else
+        {
             PrintRow("No Data Found. Try to add expense!");
         }
 
@@ -59,20 +63,39 @@ public class ExpenseTracker
         Console.WriteLine(" ");
     }
 
-    public void ViewDailySummary(DateTime date)
+    public void ViewDailySummary()
     {
         double totalAmount = 0;
+        Console.Write("\nEnter a date (e.g. 16/10/1987 -> dd/mm/yyyy): ");
+        DateTime date = DateTime.Parse(Console.ReadLine());
 
-        for (int i = 0; i < expenses.Count; i++)
+        Console.WriteLine("\n_____________________");
+        Console.WriteLine("YOUR DAILY EXPENSES SUMARRY");
+        Console.WriteLine("_____________________");
+
+        PrintLine();
+        PrintRow("No.", "Description", "Amount", "Date");
+        PrintLine();
+
+        if (expenses.Count > 0)
         {
-            if (DateTime.Parse(expenses[i].Date) == date.Date)
+            for (int i = 0; i < expenses.Count; i++)
             {
-                Console.WriteLine("Description: " + expenses[i].Description + " Amount: " + expenses[i].Amount);
-                totalAmount += expenses[i].Amount;
+                if (expenses[i].Date.ToShortDateString() == date.ToShortDateString())
+                {
+                    PrintRow((i + 1).ToString(), expenses[i].Description, expenses[i].Amount.ToString(), expenses[i].Date.ToString());
+                    totalAmount += expenses[i].Amount;
+                }
             }
         }
+        else
+        {
+            PrintRow("No Data Found. Try another date!");
+        }
 
-        Console.WriteLine("Total Amount per " + date + ": " + totalAmount);
+        PrintLine();
+        PrintRow("TotalExpense Per" + date.ToShortDateString() + ": Rp " + totalAmount);
+        PrintLine();
     }
 
     static void PrintLine()

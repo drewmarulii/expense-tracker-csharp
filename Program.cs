@@ -27,7 +27,7 @@
                     tracker.AddExpense();
                     break;
                 case 2:
-                    Console.WriteLine("\nSorry, Under Development\n");
+                    tracker.ViewDailySummary();
                     break;
                 case 3:
                     Console.WriteLine("\nSorry, Under Development\n");
