@@ -16,10 +16,11 @@
         Console.WriteLine("Press 2) Show Daily Report");
         Console.WriteLine("Press 3) Show Weekly Report");
         Console.WriteLine("Press 4) Show All Expenses");
+        Console.WriteLine("Press 5) Manage Expense Report");
         Console.Write("Input Option: ");
         int option = Convert.ToInt16(Console.ReadLine());
 
-        if (option > 0 && option < 5)
+        if (option > 0 && option < 6)
         {
             switch (option)
             {
@@ -34,6 +35,9 @@
                     break;
                 case 4:
                     tracker.DisplayAllExpenses();
+                    break;
+                case 5:
+                    tracker.ManageExpenseReport();
                     break;
                 default:
                     break;

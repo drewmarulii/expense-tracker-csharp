@@ -32,6 +32,7 @@ public class ExpenseTracker
         expense.Date = DateTime.Now;
         expenses.Add(expense);
         Console.WriteLine("New Expense Has Been Added\n");
+        ManageExpenseReport();
     }
 
     public void DisplayAllExpenses()
@@ -68,7 +69,7 @@ public class ExpenseTracker
     public void ViewDailySummary()
     {
         double totalAmount = 0;
-        Console.Write("\nEnter a date (e.g. 16/10/1987 -> dd/mm/yyyy): ");
+        Console.Write("\nEnter a date (e.g. 16/10/2023 -> dd/mm/yyyy): ");
         DateTime inputtedDate = DateTime.Parse(Console.ReadLine());
 
         Console.WriteLine("\n___________________________");
@@ -76,7 +77,7 @@ public class ExpenseTracker
         Console.WriteLine("___________________________");
 
         PrintLine();
-        PrintRow("No.", "Description", "Amount", "Date");
+        PrintRow("ID", "Description", "Amount", "Date");
         PrintLine();
 
         for (int i = 0; i < expenses.Count; i++)
@@ -108,7 +109,7 @@ public class ExpenseTracker
     public void ViewWeeklySummary()
     {
         double totalAmount = 0;
-        Console.Write("\nEnter a Start date (e.g. 16/10/1987 -> dd/mm/yyyy): ");
+        Console.Write("\nEnter a Start date (e.g. 16/10/2023 -> dd/mm/yyyy): ");
         DateTime startDate = DateTime.Parse(Console.ReadLine());
         DateTime endDate = startDate.AddDays(6);
 
@@ -144,6 +145,64 @@ public class ExpenseTracker
         PrintLine();
         PrintRow("TotalExpense From: " + startDate.ToShortDateString() + " To: " + endDate.ToShortDateString() + " = Rp " + totalAmount);
         PrintLine();
+    }
+
+    public void ManageExpenseReport()
+    {
+        DisplayAllExpenses();
+
+        Console.WriteLine("Manage Expense Report: ");
+        Console.WriteLine("PRESS 1) Add Expense");
+        Console.WriteLine("PRESS 2) Edit Expense");
+        Console.WriteLine("PRESS 3) Delete Expense");
+        Console.WriteLine("PRESS 4) Main Menu");
+        Console.Write("Input Option: ");
+        int option = Convert.ToInt16(Console.ReadLine());
+        Console.WriteLine("");
+
+        switch (option)
+        {
+            case 1:
+                AddExpense();
+                break;
+            case 2:
+                EditExpense();
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void EditExpense()
+    {
+        Console.WriteLine("____________");
+        Console.WriteLine("Edit Expense");
+        Console.WriteLine("*PRESS ENTER IF NOT CHANGES NEEDED*");
+        Console.WriteLine("____________");
+
+        Console.Write("Choose ID Expense: ");
+        int option = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Description: ");
+        string description = Console.ReadLine();
+
+        Console.Write("Amount: Rp ");
+        int amount = Convert.ToInt32(Console.ReadLine());
+
+        if (!string.IsNullOrEmpty(description))
+        {
+            expenses[option - 1].Description = description;
+        }
+
+        expenses[option - 1].Amount = amount;
+
+        expenses[option - 1].Date = DateTime.Now;
+
+        Console.WriteLine("\nExpense Has Been Edited");
+        ManageExpenseReport();
     }
 
     static void PrintLine()
